@@ -8,21 +8,57 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="site">
-    <header>
-      <h1><a href="index.html">Oliver Zhang</a></h1>
-      <nav>
-        <a href="about.html">About</a>
-        <a href="spotify.html">Short SPOT (Oct 2026)</a>
-      </nav>
-    </header>
+  <main class="layout">
+    <aside class="sidebar">
+      <h1><a href="#about">Oliver Zhang</a></h1>
 
-    <section>
-      <h2>recent posts</h2>
-      <ul class="posts">
-        <li><a href="spotify.html">Short SPOT (Oct 2026)</a></li>
-      </ul>
+      <nav aria-label="Research">
+        <a href="#about" data-panel-link="about">About</a>
+        <a href="#spot" data-panel-link="spot">Short SPOT (Oct 2026)</a>
+      </nav>
+    </aside>
+
+    <section class="content" aria-live="polite">
+      <article id="about" class="panel">
+        <h2>About</h2>
+        <p>Selected fundamental equity research.</p>
+      </article>
+
+      <article id="spot" class="panel" hidden>
+        <h2>Short SPOT (Oct 2026)</h2>
+        <p>Pitch writeup forthcoming.</p>
+
+        <h3>Resolution</h3>
+        <p>Open — initiated October 2026.</p>
+      </article>
     </section>
   </main>
+
+  <script>
+    const panels = [...document.querySelectorAll(".panel")];
+    const links = [...document.querySelectorAll("[data-panel-link]")];
+
+    function showPanel(id) {
+      const target = document.getElementById(id) || document.getElementById("about");
+
+      panels.forEach(panel => {
+        panel.hidden = panel !== target;
+      });
+
+      links.forEach(link => {
+        const active = link.dataset.panelLink === target.id;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
+    }
+
+    function syncFromHash() {
+      showPanel(location.hash.replace("#", "") || "about");
+    }
+
+    window.addEventListener("hashchange", syncFromHash);
+    syncFromHash();
+  </script>
 </body>
 </html>
