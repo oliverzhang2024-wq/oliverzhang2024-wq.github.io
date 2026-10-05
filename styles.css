@@ -1,11 +1,16 @@
 :root {
   --ink: #111;
   --muted: #777;
-  --max: 720px;
+  --line: #e8e8e8;
 }
 
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
@@ -18,45 +23,62 @@ body {
 
 a {
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
 }
 
-a:hover { opacity: .55; }
-
-.site {
-  width: min(calc(100% - 40px), var(--max));
-  margin: 0 auto;
-  padding: 72px 0 96px;
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
 }
 
-header { margin-bottom: 72px; }
+.sidebar {
+  padding: 64px 38px;
+  border-right: 1px solid var(--line);
+}
 
-header h1 {
-  margin: 0 0 10px;
-  font-size: 22px;
+.sidebar h1 {
+  margin: 0 0 34px;
+  font-size: 21px;
   line-height: 1.2;
   font-weight: 600;
 }
 
-header h1 a { text-decoration: none; }
-
-nav {
+.sidebar nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-nav a { color: var(--muted); }
+.sidebar nav a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
-section,
-article { max-width: 620px; }
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  color: var(--ink);
+}
+
+.content {
+  padding: 64px 72px 96px;
+}
+
+.panel {
+  max-width: 720px;
+}
+
+.panel[hidden] {
+  display: none;
+}
 
 h2 {
-  margin: 0 0 22px;
-  font-size: 15px;
+  margin: 0 0 24px;
+  font-size: 19px;
+  line-height: 1.3;
   font-weight: 600;
-  text-transform: lowercase;
 }
 
 h3 {
@@ -65,19 +87,26 @@ h3 {
   font-weight: 600;
 }
 
-p { margin: 0 0 14px; }
-
-.posts {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+p {
+  margin: 0 0 14px;
 }
 
-.posts li { margin: 0 0 10px; }
-.work-link { margin-top: 24px; }
-.note { color: var(--muted); }
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 
-@media (max-width: 600px) {
-  .site { padding-top: 42px; }
-  header { margin-bottom: 52px; }
+  .sidebar {
+    padding: 34px 24px 28px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sidebar h1 {
+    margin-bottom: 22px;
+  }
+
+  .content {
+    padding: 34px 24px 64px;
+  }
 }
