@@ -80,6 +80,13 @@ h2 {
 
 p { margin: 0 0 12px; }
 
+.spot-hero {
+  display: block;
+  width: min(100%, 680px);
+  height: auto;
+  margin: 0 0 28px;
+}
+
 @media (max-width: 720px) {
   .layout { grid-template-columns: 1fr; }
 
